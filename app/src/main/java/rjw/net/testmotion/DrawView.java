@@ -54,9 +54,10 @@ public class DrawView extends View {
                 return true;
             }
             case MotionEvent.ACTION_MOVE:
-                Log.d("zhd", "onTouchEvent: " + (event.getX() - mPreX));
+
                 float endX = (mPreX + event.getX()) / 2;
                 float endY = (mPreY + event.getY()) / 2;
+                Log.d("zhd", "caonima: " + endX);
                 mPath.quadTo(mPreX, mPreY, endX, endY);
                 mPreX = event.getX();
                 mPreY = event.getY();

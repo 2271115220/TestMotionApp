@@ -20,15 +20,9 @@ import java.util.concurrent.Executors;
 public class MainActivity extends AppCompatActivity {
     private MyFrameLayout mMyFrameLayout;
     TcpSocketClient mTcpSocketClient;
-    private String IP = "192.168.1.3";
+    private String IP = "192.168.0.111";
     private int PORT = 9877;
 
-    private double lastX = 0;//上一次手指的位置x
-    private double lastY = 0;//上一次手指的位置y
-    private double nowX = 0;//这次手指的位置X
-    private double nowY = 0;//这次手指的位置Y
-    private double codeX = 0;//两次动作之间的偏移量X
-    private double codeY = 0;//两次动作之间的偏移量Y
 
     private float width = 0;
     private float height = 0;
@@ -60,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 width = mMyFrameLayout.getWidth();
                 height = mMyFrameLayout.getHeight();
+                mAction.setAppWidth(width);
+                mAction.setAppHeight(height);
             }
         });
         mMyFrameLayout.setOnTouchListener(new View.OnTouchListener() {
@@ -71,8 +67,8 @@ public class MainActivity extends AppCompatActivity {
                         mPreX = event.getX();
                         mPreY = event.getY();
                         mAction.setAction(MotionEvent.ACTION_DOWN);
-                        mAction.setX(numberFormat.format(mPreX / width));
-                        mAction.setY(numberFormat.format(mPreY / height));
+                        mAction.setX(mPreX);
+                        mAction.setY(mPreY);
 //                        mAction.setX(new BigDecimal(mPreX).divide(new BigDecimal(width)).toString());
 //                        mAction.setY(new BigDecimal(mPreY).divide(new BigDecimal(width)).toString());
                         final String jsonString = JSON.toJSONString(mAction);
@@ -86,14 +82,13 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case MotionEvent.ACTION_MOVE:
                         //移动鼠标
-
-                        float aaa = event.getX();
-                        float bbb = event.getY();
                         mAction.setAction(MotionEvent.ACTION_MOVE);
-                        mAction.setX(numberFormat.format(aaa / width));
-                        mAction.setY(numberFormat.format(bbb / height));
+                        float endW = event.getX();
+                        float endH = event.getY();
+
+                        mAction.setX(endW);
+                        mAction.setY(endH);
                         final String jsonString2 = JSON.toJSONString(mAction);
-                        Log.d("zhd", "jsonString2: " + jsonString2);
                         mExecutorService.execute(new Thread() {
                             @Override
                             public void run() {
