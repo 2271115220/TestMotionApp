@@ -20,9 +20,10 @@ import java.util.concurrent.Executors;
 public class MainActivity extends AppCompatActivity {
     private MyFrameLayout mMyFrameLayout;
     TcpSocketClient mTcpSocketClient;
-    private String IP = "192.168.0.111";
-    private int PORT = 9877;
+    private String IP = "192.168.1.3";
+    private int PORT = 9999;
 
+    private int ACATION_DOUBLE_CLICK = 3;//双击
 
     private float width = 0;
     private float height = 0;
@@ -36,18 +37,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_main);
         numberFormat = NumberFormat.getInstance();
         numberFormat.setMaximumFractionDigits(10);
         mAction = new action();
         mExecutorService = Executors.newCachedThreadPool();
-        setContentView(R.layout.activity_main);
         mMyFrameLayout = findViewById(R.id.frameLayout);
         mMyFrameLayout.post(new Runnable() {
             @Override
@@ -95,12 +94,11 @@ public class MainActivity extends AppCompatActivity {
                                 mTcpSocketClient.sendMessageByTcpSocket(jsonString2);
                             }
                         });
-
+                        break;
                 }
                 return true;
             }
         });
-
         mMyFrameLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

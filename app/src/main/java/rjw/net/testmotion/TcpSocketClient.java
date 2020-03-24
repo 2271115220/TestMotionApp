@@ -7,12 +7,6 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-/**
- * @className: TcpSocketClient
- * @classDescription: tcp套接字客户端
- * @author: leibing
- * @createTime: 2016/10/06
- */
 public class TcpSocketClient {
     // 服务端地址
     private String serverIp = "172.17.30.12";
@@ -29,42 +23,16 @@ public class TcpSocketClient {
     // 内容
     private String content = "";
 
-    /**
-     * 构造函数
-     * @author leibing
-     * @createTime 2016/10/06
-     * @lastModify 2016/10/06
-     * @param mTcpSocketListener tcp套接字监听
-     * @return
-     */
     public TcpSocketClient(TcpSocketListener mTcpSocketListener){
         this.mTcpSocketListener = mTcpSocketListener;
     }
 
-    /**
-     * 构造函数
-     * @author leibing
-     * @createTime 2016/10/06
-     * @lastModify 2016/10/06
-     * @param serverIp = 服务端地址
-     * @param serverPort 服务端口号
-     * @param mTcpSocketListener tcp套接字监听
-     * @return
-     */
     public TcpSocketClient(String serverIp, int serverPort , TcpSocketListener mTcpSocketListener){
         this.serverIp  = serverIp;
         this.serverPort = serverPort;
         this.mTcpSocketListener = mTcpSocketListener;
     }
 
-    /**
-     * 启动tcp套接字连接
-     * @author leibing
-     * @createTime 2016/10/06
-     * @lastModify 2016/10/06
-     * @param
-     * @return
-     */
     public void startTcpSocketConnect(){
         // 开启一个线程启动tcp socket
         new Thread(new Runnable() {
@@ -93,14 +61,6 @@ public class TcpSocketClient {
         }).start();
     }
 
-    /**
-     * 通过tcp套接字发送消息
-     * @author leibing
-     * @createTime 2016/10/06
-     * @lastModify 2016/10/06
-     * @param
-     * @return
-     */
     public void sendMessageByTcpSocket(String msg){
         if (mSocket != null && mSocket.isConnected()){
             if (!mSocket.isOutputShutdown() && out != null){
@@ -113,12 +73,6 @@ public class TcpSocketClient {
 
     }
 
-    /**
-     * @interfaceName:
-     * @interfaceDescription: tcp套接字监听
-     * @author: leibing
-     * @createTime: 2016/10/06
-     */
     public interface TcpSocketListener{
         // 回调内容
         void callBackContent(String content);
