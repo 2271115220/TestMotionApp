@@ -23,24 +23,24 @@ public class TcpSocketClient {
     // 内容
     private String content = "";
 
-    public TcpSocketClient(TcpSocketListener mTcpSocketListener){
+    public TcpSocketClient(TcpSocketListener mTcpSocketListener) {
         this.mTcpSocketListener = mTcpSocketListener;
     }
 
-    public TcpSocketClient(String serverIp, int serverPort , TcpSocketListener mTcpSocketListener){
-        this.serverIp  = serverIp;
+    public TcpSocketClient(String serverIp, int serverPort, TcpSocketListener mTcpSocketListener) {
+        this.serverIp = serverIp;
         this.serverPort = serverPort;
         this.mTcpSocketListener = mTcpSocketListener;
     }
 
-    public void startTcpSocketConnect(){
+    public void startTcpSocketConnect() {
         // 开启一个线程启动tcp socket
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     mSocket = new Socket(serverIp, serverPort);
-                    mSocket.setTcpNoDelay(false);
+                    mSocket.setTcpNoDelay(true);
                     in = new BufferedReader(new InputStreamReader(mSocket.getInputStream()));
                     out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(mSocket.getOutputStream())), true);
                     while (true) {
@@ -61,11 +61,11 @@ public class TcpSocketClient {
         }).start();
     }
 
-    public void sendMessageByTcpSocket(String msg){
-        if (mSocket != null && mSocket.isConnected()){
-            if (!mSocket.isOutputShutdown() && out != null){
+    public void sendMessageByTcpSocket(String msg) {
+        if (mSocket != null && mSocket.isConnected()) {
+            if (!mSocket.isOutputShutdown() && out != null) {
                 out.println(msg);
-                if (mTcpSocketListener != null){
+                if (mTcpSocketListener != null) {
                     mTcpSocketListener.clearInputContent();
                 }
             }
@@ -73,9 +73,10 @@ public class TcpSocketClient {
 
     }
 
-    public interface TcpSocketListener{
+    public interface TcpSocketListener {
         // 回调内容
         void callBackContent(String content);
+
         // 清除输入框内容
         void clearInputContent();
     }

@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 //                        mAction.setX(new BigDecimal(mPreX).divide(new BigDecimal(width)).toString());
 //                        mAction.setY(new BigDecimal(mPreY).divide(new BigDecimal(width)).toString());
                         final String jsonString = JSON.toJSONString(mAction);
-                        Log.d("zhd", "jsonString: " + jsonString);
+
                         mExecutorService.execute(new Thread() {
                             @Override
                             public void run() {
@@ -82,18 +82,23 @@ public class MainActivity extends AppCompatActivity {
                     case MotionEvent.ACTION_MOVE:
                         //移动鼠标
                         mAction.setAction(MotionEvent.ACTION_MOVE);
-                        float endW = event.getX();
-                        float endH = event.getY();
+                        float endW = event.getX() - mPreX;
+                        float endH = event.getY() - mPreY;
+                        if (endW != 0 || endH != 0) {
+                            mAction.setX(endW);
+                            mAction.setY(endH);
+                            final String jsonString2 = JSON.toJSONString(mAction);
+                            Log.d("zhd", "jsonString: " + jsonString2);
+                            mExecutorService.execute(new Thread() {
+                                @Override
+                                public void run() {
+                                    mTcpSocketClient.sendMessageByTcpSocket(jsonString2);
+                                }
+                            });
+                            mPreX = event.getX();
+                            mPreY = event.getY();
+                        }
 
-                        mAction.setX(endW);
-                        mAction.setY(endH);
-                        final String jsonString2 = JSON.toJSONString(mAction);
-                        mExecutorService.execute(new Thread() {
-                            @Override
-                            public void run() {
-                                mTcpSocketClient.sendMessageByTcpSocket(jsonString2);
-                            }
-                        });
                         break;
                 }
                 return true;

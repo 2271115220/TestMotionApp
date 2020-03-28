@@ -40,7 +40,7 @@ public class DrawView extends View {
         Paint paint = new Paint();
         paint.setColor(Color.WHITE);
         paint.setStyle(Paint.Style.STROKE);
-
+        Log.d("zhd", "onDraw: ");
         canvas.drawPath(mPath, paint);
     }
 
@@ -57,7 +57,6 @@ public class DrawView extends View {
 
                 float endX = (mPreX + event.getX()) / 2;
                 float endY = (mPreY + event.getY()) / 2;
-                Log.d("zhd", "caonima: " + endX);
                 mPath.quadTo(mPreX, mPreY, endX, endY);
                 mPreX = event.getX();
                 mPreY = event.getY();
