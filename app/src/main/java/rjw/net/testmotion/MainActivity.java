@@ -1,6 +1,5 @@
 package rjw.net.testmotion;
 
-import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.alibaba.fastjson.JSON;
 
-import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -20,7 +18,7 @@ import java.util.concurrent.Executors;
 public class MainActivity extends AppCompatActivity {
     private MyFrameLayout mMyFrameLayout;
     TcpSocketClient mTcpSocketClient;
-    private String IP = "192.168.1.3";
+    private String IP = "192.168.1.36";
     private int PORT = 9999;
 
     private int ACATION_DOUBLE_CLICK = 3;//双击
@@ -72,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 //                        mAction.setY(new BigDecimal(mPreY).divide(new BigDecimal(width)).toString());
                         final String jsonString = JSON.toJSONString(mAction);
 
-                        mExecutorService.execute(new Thread() {
+                        mExecutorService.execute(new Runnable() {
                             @Override
                             public void run() {
                                 mTcpSocketClient.sendMessageByTcpSocket(jsonString);
@@ -89,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                             mAction.setY(endH);
                             final String jsonString2 = JSON.toJSONString(mAction);
                             Log.d("zhd", "jsonString: " + jsonString2);
-                            mExecutorService.execute(new Thread() {
+                            mExecutorService.execute(new Runnable() {
                                 @Override
                                 public void run() {
                                     mTcpSocketClient.sendMessageByTcpSocket(jsonString2);
