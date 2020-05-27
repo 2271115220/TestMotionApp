@@ -1,4 +1,4 @@
-package rjw.net.testmotion;
+package rjw.net.testmotion.aaa;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -14,6 +14,10 @@ import com.alibaba.fastjson.JSON;
 import java.text.NumberFormat;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import rjw.net.testmotion.R;
+import rjw.net.testmotion.client.TcpSocketClient;
+import rjw.net.testmotion.action;
 
 public class MainActivity extends AppCompatActivity {
     private MyFrameLayout mMyFrameLayout;

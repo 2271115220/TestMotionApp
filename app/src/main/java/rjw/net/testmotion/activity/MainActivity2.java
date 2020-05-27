@@ -1,4 +1,4 @@
-package rjw.net.testmotion;
+package rjw.net.testmotion.activity;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -14,6 +14,11 @@ import com.alibaba.fastjson.JSON;
 import java.text.NumberFormat;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import rjw.net.testmotion.R;
+import rjw.net.testmotion.aaa.MyFrameLayout;
+import rjw.net.testmotion.action;
+import rjw.net.testmotion.client.TcpSocketClient;
 
 public class MainActivity2 extends AppCompatActivity {
     private MyFrameLayout mMyFrameLayout;
@@ -40,7 +45,7 @@ public class MainActivity2 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main2);
         numberFormat = NumberFormat.getInstance();
         numberFormat.setMaximumFractionDigits(10);
         mAction = new action();

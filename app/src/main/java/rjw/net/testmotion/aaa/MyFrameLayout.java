@@ -1,4 +1,4 @@
-package rjw.net.testmotion;
+package rjw.net.testmotion.aaa;
 
 import android.content.Context;
 import android.util.AttributeSet;

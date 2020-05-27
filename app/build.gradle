@@ -28,4 +28,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation files('libs/fastjson-1.2.67.jar')
     implementation files('libs/netty-all-4.1.50.Final.jar')
+    implementation 'com.google.code.gson:gson:2.8.6'
+
 }

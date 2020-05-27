@@ -1,4 +1,4 @@
-package rjw.net.testmotion;
+package rjw.net.testmotion.client;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
